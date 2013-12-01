@@ -7,6 +7,7 @@ package indsql.api;
 import indsql.api.IndsqlParser.*;
 import indsql.app.SqlStatement;
 import java.io.*;
+import java.sql.SQLException;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -39,7 +40,7 @@ public class IndSQL {
         }
     }
     
-    public static SqlStatement convertToSQL(String statement) throws InvalidQueryException {
+    public static SqlStatement convertToSQL(String statement) throws InvalidQueryException, SQLException {
         String sql = "";
         String type = "";
 

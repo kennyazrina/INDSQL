@@ -11,6 +11,9 @@ import java.sql.*;
  */
 public class SqlStatement {
     private Statement statement;
+    private ResultSet resultSet;
+    private int numAffectedRows;
+    private String resultDump;
     private String sql;
     private String type;
     
@@ -18,9 +21,10 @@ public class SqlStatement {
         makeStatement();
     }
     
-    public SqlStatement(String sql, String type) {
+    public SqlStatement(String sql, String type) throws SQLException {
         this.sql = sql;
         this.type = type;
+        makeStatement();
     }
     
     public String getSQL() {
@@ -42,22 +46,66 @@ public class SqlStatement {
         return statement;
     }
     
-    public ResultSet executeQuery(String sql) throws SQLException {
-        return statement.executeQuery(sql);
+    public void execute() throws SQLException {
+        if ("select".equals(type)) {
+            resultSet = statement.executeQuery(sql);
+        }
+        else {
+            numAffectedRows = statement.executeUpdate(sql);
+        }
+
+        generateResultDump();
     }
     
-    public ResultSet executeQuery() throws SQLException {
-        return statement.executeQuery(sql);
+    public void close() throws SQLException {
+        statement.close();
     }
     
-    public boolean execute(String sql) throws SQLException {
-        return statement.execute(sql);
+    public ResultSet getResultSet() {
+        return resultSet;
     }
     
-    public boolean execute() throws SQLException {
-        return statement.execute(sql);
+    public String getResultDump() {
+        return resultDump;
     }
 
+    private void generateResultDump() throws SQLException {
+        resultDump = "";
+
+        if ("select".equals(type)) {
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            
+            for (int i = 1; i <= columnCount; ++i) {
+                if (i > 1) {
+                    resultDump += ",";
+                }
+
+                resultDump += rsmd.getColumnName(i);
+            }
+            
+            int l = resultDump.length();
+            resultDump += "\n";
+            for (int k = 0; k < l; ++k) {
+                resultDump += "=";
+            }
+            
+            while(resultSet.next()) {
+                resultDump += "\n";
+                for (int j = 1; j <= columnCount; ++j) {
+                    if (j > 1) {
+                        resultDump += ",";
+                    }
+
+                    resultDump += resultSet.getString(j);
+                }
+            }
+        }
+        else {
+            resultDump = numAffectedRows + " rows affected.";
+        }
+    }
+    
     public void insert(String nama, int npm) throws SQLException{
         statement.execute("insert into student values(\""+nama+"\","+npm+")");
     }
