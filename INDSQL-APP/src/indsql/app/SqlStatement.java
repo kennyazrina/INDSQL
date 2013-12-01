@@ -11,9 +11,24 @@ import java.sql.*;
  */
 public class SqlStatement {
     private Statement statement;
+    private String sql;
+    private String type;
     
     public SqlStatement() throws SQLException{
         makeStatement();
+    }
+    
+    public SqlStatement(String sql, String type) {
+        this.sql = sql;
+        this.type = type;
+    }
+    
+    public String getSQL() {
+        return sql;
+    }
+    
+    public String getType() {
+        return type;
     }
     
     public Statement getStatement() {
@@ -31,7 +46,15 @@ public class SqlStatement {
         return statement.executeQuery(sql);
     }
     
+    public ResultSet executeQuery() throws SQLException {
+        return statement.executeQuery(sql);
+    }
+    
     public boolean execute(String sql) throws SQLException {
+        return statement.execute(sql);
+    }
+    
+    public boolean execute() throws SQLException {
         return statement.execute(sql);
     }
 

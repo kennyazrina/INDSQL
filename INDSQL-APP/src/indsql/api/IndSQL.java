@@ -5,6 +5,7 @@
 package indsql.api;
 
 import indsql.api.IndsqlParser.*;
+import indsql.app.SqlStatement;
 import java.io.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -29,7 +30,7 @@ public class IndSQL {
             }
             System.out.println(statement);
             
-            String sql = convertToSQL(statement);
+            String sql = convertToSQL(statement).getSQL();
             
             System.out.println("\n" + sql);
         }
@@ -38,8 +39,9 @@ public class IndSQL {
         }
     }
     
-    public static String convertToSQL(String statement) throws InvalidQueryException {
+    public static SqlStatement convertToSQL(String statement) throws InvalidQueryException {
         String sql = "";
+        String type = "";
 
         try {
 
@@ -58,24 +60,29 @@ public class IndSQL {
             if (select != null) {
                 // SELECT statement
                 sql = parseSelect(select);
+                type = "select";
             }
             else if (update != null) {
                 sql = parseUpdate(update);
+                type = "update";
             }
             else if (delete != null) {
                 sql = parseDelete(delete);
+                type = "delete";
             }
             else if (insert != null) {
                 sql = parseInsert(insert);
+                type = "insert";
             }
         }
         catch (Exception ex) {
             sql = "";
+            type = "";
             
             throw ex;
         }
         finally {
-            return sql;
+            return new SqlStatement(sql, type);
         }
     }
 
