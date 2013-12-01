@@ -69,7 +69,7 @@ public class IndSQL {
         }
     }
 
-    public static String parseSelect(Select_statementContext select)
+    private static String parseSelect(Select_statementContext select)
             throws Exception {
         String sql = "SELECT ";
 
