@@ -1,1 +1,4 @@
 *.class
+/INDSQL-APP/nbproject/private/
+/INDSQL-APP/build/
+/INDSQL-APP/dist/
