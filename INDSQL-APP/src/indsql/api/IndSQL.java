@@ -103,6 +103,16 @@ public class IndSQL {
             // WHERE clause
             sql += " WHERE " + select.expression().getText();
         }
+        
+        TerminalNode GROUP = select.GROUP();
+        if (GROUP != null) {
+            sql += " GROUP BY " + select.select_group_by().getText();
+        }
+        
+        TerminalNode ORDER = select.ORDER();
+        if (ORDER != null) {
+            sql += " ORDER BY " + select.select_order_by().getText();
+        }
 
         return sql;
     }
