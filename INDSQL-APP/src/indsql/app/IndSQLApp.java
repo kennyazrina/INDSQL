@@ -6,6 +6,7 @@ package indsql.app;
 
 import indsql.api.*;
 import java.io.*;
+import java.sql.ResultSet;
 
 /**
  *
@@ -15,6 +16,12 @@ public class IndSQLApp {
     public static Connect driver;
 
     public static void main(String args[]) {
+        // Edit this for swing
+        // In swing, set connecion params with Connect.setConnectionParams()
+        cliMain();
+    }
+        
+    public static void cliMain() {
         System.out.println("IndSQL 0.1\n");
         
         try {
@@ -34,8 +41,10 @@ public class IndSQLApp {
             
             System.out.println("Connecting to MySQL...");
             driver = new Connect();
-
-            sql.executeQuery();
+            
+            sql.execute();
+            System.out.println(sql.getResultDump());
+            sql.close();
         }
         catch (Exception ex) {
             ex.printStackTrace();
