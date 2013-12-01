@@ -14,8 +14,6 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * @author Andhika
  */
 public class IndSQL {
-    private static RootContext select_statement;
-
     /**
      * @param args the command line arguments
      */
@@ -53,11 +51,23 @@ public class IndSQL {
             RootContext root = parser.root();
 
             Select_statementContext select = root.select_statement();
+            Update_statementContext update = root.update_statement();
+            Delete_statementContext delete = root.delete_statement();
+            Insert_statementContext insert = root.insert_statement();
+            
             if (select != null) {
                 // SELECT statement
                 sql = parseSelect(select);
             }
-
+            else if (update != null) {
+                sql = parseUpdate(update);
+            }
+            else if (delete != null) {
+                sql = parseDelete(delete);
+            }
+            else if (insert != null) {
+                sql = parseInsert(insert);
+            }
         }
         catch (Exception ex) {
             sql = "";
@@ -95,6 +105,24 @@ public class IndSQL {
             sql += " WHERE " + select.expression().getText();
         }
 
+        return sql;
+    }
+
+    private static String parseUpdate(Update_statementContext update) {
+        String sql = "UPDATE ";
+        
+        return sql;
+    }
+
+    private static String parseDelete(Delete_statementContext delete) {
+        String sql = "DELETE FROM ";
+        
+        return sql;
+    }
+
+    private static String parseInsert(Insert_statementContext insert) {
+        String sql = "INSERT INTO ";
+        
         return sql;
     }
 }
