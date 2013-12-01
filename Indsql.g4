@@ -1177,25 +1177,25 @@ group_functions:
 
 
 // identifiers ---  http://dev.mysql.com/doc/refman/5.6/en/identifiers.html --------------
-schema_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("schema name = \%s \n",(char*)($tmpName.text->chars));};
-table_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("table name = \%s \n",(char*)($tmpName.text->chars));};
-engine_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("engine name = \%s \n",(char*)($tmpName.text->chars));};
-column_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("column name = \%s \n",(char*)($tmpName.text->chars));};
-view_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("view name = \%s \n",(char*)($tmpName.text->chars));};
-parser_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("index name = \%s \n",(char*)($tmpName.text->chars));};
-index_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("index name = \%s \n",(char*)($tmpName.text->chars));};
-partition_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("partition name = \%s \n",(char*)($tmpName.text->chars));};
-partition_logical_name		: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("partition logical name = \%s \n",(char*)($tmpName.text->chars));};
-constraint_symbol_name		: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("constraint symbol name = \%s \n",(char*)($tmpName.text->chars));};
-foreign_key_symbol_name		: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("foreign key symbol name = \%s \n",(char*)($tmpName.text->chars));};
-collation_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("collation name = \%s \n",(char*)($tmpName.text->chars));};
-event_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("event name = \%s \n",(char*)($tmpName.text->chars));};
-user_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("user name = \%s \n",(char*)($tmpName.text->chars));};
-function_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("function name = \%s \n",(char*)($tmpName.text->chars));};
-procedure_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("procedure name = \%s \n",(char*)($tmpName.text->chars));};
-server_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("server name = \%s \n",(char*)($tmpName.text->chars));};
-wrapper_name			: tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 64}? {printf("wrapper name = \%s \n",(char*)($tmpName.text->chars));};
-alias				: ( AS_SYM )? tmpName=ID {strlen((const char *)$tmpName.text->chars) <= 256}? {printf("alias = \%s \n",(char*)($tmpName.text->chars));};
+schema_name			: ID ;
+table_name			: ID ;
+engine_name			: ID ;
+column_name			: ID ;
+view_name			: ID ;
+parser_name			: ID ;
+index_name			: ID ;
+partition_name			: ID ;
+partition_logical_name		: ID ;
+constraint_symbol_name		: ID ;
+foreign_key_symbol_name		: ID ;
+collation_name			: ID ;
+event_name			: ID ;
+user_name			: ID ;
+function_name			: ID ;
+procedure_name			: ID ;
+server_name			: ID ;
+wrapper_name			: ID ;
+alias				: ( AS_SYM )? ID ;
 
 
 
@@ -1961,11 +1961,6 @@ alter_server_option:
 drop_server_statement:
 	DROP SERVER_SYM (IF EXISTS)? server_name
 ;
-
-
-
-
-
 
 // http://dev.mysql.com/doc/refman/5.6/en/create-table.html
 create_table_statement:
