@@ -38,7 +38,7 @@ public class IndSQL {
         }
     }
     
-    public static String convertToSQL(String statement) throws Exception {
+    public static String convertToSQL(String statement) throws InvalidQueryException {
         String sql = "";
 
         try {
@@ -79,8 +79,7 @@ public class IndSQL {
         }
     }
 
-    private static String parseSelect(Select_statementContext select)
-            throws Exception {
+    private static String parseSelect(Select_statementContext select) throws InvalidQueryException {
         String sql = "SELECT ";
 
         Select_listContext select_list = select.select_list();
@@ -96,7 +95,7 @@ public class IndSQL {
             sql += " FROM " + table_spec.getText();
         }
         else {
-            throw new Exception("Invalid query: No table_spec defined.");
+            throw new InvalidQueryException();
         }
 
         TerminalNode where = select.WHERE();
@@ -108,21 +107,83 @@ public class IndSQL {
         return sql;
     }
 
-    private static String parseUpdate(Update_statementContext update) {
+    private static String parseUpdate(Update_statementContext update) throws InvalidQueryException {
         String sql = "UPDATE ";
+
+        Table_specContext table_spec = update.table_spec();
+        if (table_spec != null) {
+            sql += table_spec.getText();
+        }
+        else {
+            throw new InvalidQueryException();
+        }
+
+        Update_listContext update_list = update.update_list();
+        if (update_list != null) {
+            sql += " SET " + update_list.getText();
+        }
+        else {
+            throw new InvalidQueryException();
+        }
+        
+        TerminalNode WHERE = update.WHERE();
+        if (WHERE != null) {
+            sql += " WHERE " + update.expression().getText();
+        }
         
         return sql;
     }
 
-    private static String parseDelete(Delete_statementContext delete) {
+    private static String parseDelete(Delete_statementContext delete) throws InvalidQueryException {
         String sql = "DELETE FROM ";
         
+        Table_specContext table_spec = delete.table_spec();
+        if (table_spec != null) {
+            sql += table_spec.getText();
+        }
+        else {
+            throw new InvalidQueryException();
+        }
+        
+        TerminalNode WHERE = delete.WHERE();
+        if (WHERE != null) {
+            sql += " WHERE " + delete.expression().getText();
+        }
+        
         return sql;
     }
 
-    private static String parseInsert(Insert_statementContext insert) {
+    private static String parseInsert(Insert_statementContext insert) throws InvalidQueryException {
         String sql = "INSERT INTO ";
         
+        Table_specContext table_spec = insert.table_spec();
+        if (table_spec != null) {
+            sql += table_spec.getText();
+        }
+        else {
+            throw new InvalidQueryException();
+        }
+        
+        Insert_field_listContext insert_field_list = insert.insert_field_list();
+        if (insert_field_list != null) {
+            sql += " " + insert_field_list.getText();
+        }
+        else {
+            throw new InvalidQueryException();
+        }
+        
+        Insert_listContext insert_list = insert.insert_list();
+        if (insert_list != null) {
+            sql += " ROWS " + insert_list.getText();
+        }
+        else {
+            throw new InvalidQueryException();
+        }
+        
         return sql;
+    }
+    
+    private static class InvalidQueryException extends Exception {
+        
     }
 }
