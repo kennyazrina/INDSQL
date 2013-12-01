@@ -12,29 +12,9 @@ import java.io.*;
  * @author Andhika
  */
 public class IndSQLApp {
+    public static Connect driver;
+
     public static void main(String args[]) {
-        String arg = args.length > 0 ? args[0] : "";
-        
-        switch (arg.toLowerCase()) {
-            case "-h":
-            case "-help":
-            case "-?":
-                System.out.println("Options:\n-? Show this screen\n-i Init database");
-                break;
-            case "-i":
-            case "-init":
-                dbInitMain();
-                break;
-            default:
-                defaultMain();
-        }
-    }
-
-    private static void dbInitMain() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    private static void defaultMain() {
         System.out.println("IndSQL 0.1\n");
         
         try {
@@ -46,14 +26,16 @@ public class IndSQLApp {
             
             System.out.println("");
             
-            String sql = IndSQL.convertToSQL(statement);
+            SqlStatement sql = IndSQL.convertToSQL(statement);
             System.out.println("Resulting SQL statement:");
-            System.out.println(sql);
+            System.out.println(sql.getSQL());
             
             System.out.println("");
             
             System.out.println("Connecting to MySQL...");
-            // TODO handle connection and execution here
+            driver = new Connect();
+
+            sql.executeQuery();
         }
         catch (Exception ex) {
             ex.printStackTrace();
