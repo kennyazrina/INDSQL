@@ -284,6 +284,28 @@ public interface IndsqlListener extends ParseTreeListener {
 	void exitUpdate_list(@NotNull IndsqlParser.Update_listContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link IndsqlParser#select_group_by}.
+	 * @param ctx the parse tree
+	 */
+	void enterSelect_group_by(@NotNull IndsqlParser.Select_group_byContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link IndsqlParser#select_group_by}.
+	 * @param ctx the parse tree
+	 */
+	void exitSelect_group_by(@NotNull IndsqlParser.Select_group_byContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link IndsqlParser#select_order_by}.
+	 * @param ctx the parse tree
+	 */
+	void enterSelect_order_by(@NotNull IndsqlParser.Select_order_byContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link IndsqlParser#select_order_by}.
+	 * @param ctx the parse tree
+	 */
+	void exitSelect_order_by(@NotNull IndsqlParser.Select_order_byContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link IndsqlParser#select_statement}.
 	 * @param ctx the parse tree
 	 */

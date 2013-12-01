@@ -84,18 +84,19 @@ select_statement:
     (
         GROUP
         BY
-            select_field_list
+            select_group_by
     )?
     (
         ORDER
         BY
-            select_field_list
-            select_order
+            select_order_by
     )?
 ;
 select_list: (displayed_column (COMMA displayed_column)*) | ASTERISK | ALL;
 displayed_column: column_spec;
 select_field_list: displayed_column (COMMA displayed_column)*;
+select_group_by: select_field_list;
+select_order_by: select_field_list select_order;
 select_order: ASC | DESC;
 
 // ### Update statement

@@ -342,6 +342,32 @@ public class IndsqlBaseListener implements IndsqlListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterSelect_group_by(@NotNull IndsqlParser.Select_group_byContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSelect_group_by(@NotNull IndsqlParser.Select_group_byContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void enterSelect_order_by(@NotNull IndsqlParser.Select_order_byContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitSelect_order_by(@NotNull IndsqlParser.Select_order_byContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterSelect_statement(@NotNull IndsqlParser.Select_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
