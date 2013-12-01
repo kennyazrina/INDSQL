@@ -12,6 +12,9 @@ import java.sql.*;
  * @author kaniaazrina
  */
 public class Connect {
+    private static String dbName = "school";
+    private static String dbUser = "root";
+    private static String dbPass = "";
     private static Connection koneksi;
     private static Driver driver;
     
@@ -29,13 +32,19 @@ public class Connect {
 
             // buat koneksi
             koneksi = DriverManager.getConnection(
-                       "jdbc:mysql://localhost:3306/school",
-                       "root",
-                       "");
+                       "jdbc:mysql://localhost:3306/" + dbName,
+                       dbUser,
+                       dbPass);
          }
-    }  
+    }
+    
+    public static void setConnectionParams(String databaseName, String databaseUser, String databasePassword) {
+        dbName = databaseName;
+        dbUser = databaseUser;
+        dbPass = databasePassword;
+    }
 
-     public static void main(String args[]) {
+    public static void main(String args[]) {
          try {
              Connect c = new Connect();
              System.out.println("Connection established");
