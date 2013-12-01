@@ -52,7 +52,10 @@ predicate: column_spec | literal_value;
 relational_op: EQ_SYM | NEQ_SYM | GT_SYM | LT_SYM;
 literal_value: TEXT_STRING | INTEGER_NUM;
 
-// ## Select statement
+// ## Statements
+root: select_statement;
+
+// ### Select statement
 select_statement:
 	SELECT
 		select_list
@@ -60,9 +63,5 @@ select_statement:
 		table_spec
 	(WHERE expression)?
 ;
-
 select_list: (displayed_column (COMMA displayed_column)*) | ASTERISK | ALL;
-
 displayed_column: column_spec;
-
-root: select_statement;
