@@ -6,8 +6,6 @@ package indsql.app;
 
 import indsql.api.*;
 import java.io.*;
-import com.mysql.jdbc.Driver;
-import java.sql.*;
 
 /**
  *
@@ -15,7 +13,29 @@ import java.sql.*;
  */
 public class IndSQLApp {
     public static void main(String args[]) {
-        System.out.println("IndSQL 0.1");
+        String arg = args.length > 0 ? args[0] : "";
+        
+        switch (arg.toLowerCase()) {
+            case "-h":
+            case "-help":
+            case "-?":
+                System.out.println("Options:\n-? Show this screen\n-i Init database");
+                break;
+            case "-i":
+            case "-init":
+                dbInitMain();
+                break;
+            default:
+                defaultMain();
+        }
+    }
+
+    private static void dbInitMain() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private static void defaultMain() {
+        System.out.println("IndSQL 0.1\n");
         
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

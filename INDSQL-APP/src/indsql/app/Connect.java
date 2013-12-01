@@ -12,23 +12,28 @@ import java.sql.*;
  * @author kaniaazrina
  */
 public class Connect {
+    private static Connection koneksi;
+    private static Driver driver;
+    
     public Connect() throws SQLException{
         makeConnection();
-    } 
+    }
+    
+    public Connection getConnection() {
+        return koneksi;
+    }
 
-    private Connection koneksi;  
-
-     public  Connection makeConnection() throws SQLException {
+    public void makeConnection() throws SQLException {
         if (koneksi == null) {
-             new Driver();
+            driver = new Driver();
+
             // buat koneksi
-             koneksi = DriverManager.getConnection(
+            koneksi = DriverManager.getConnection(
                        "jdbc:mysql://localhost:3306/school",
                        "root",
                        "");
          }
-         return koneksi;
-     }  
+    }  
 
      public static void main(String args[]) {
          try {
