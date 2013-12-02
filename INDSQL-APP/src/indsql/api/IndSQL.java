@@ -201,7 +201,7 @@ public class IndSQL {
         return sql;
     }
     
-    private static class InvalidQueryException extends Exception {
+    public static class InvalidQueryException extends Exception {
         
     }
 }

@@ -7,6 +7,8 @@ package indsql.app;
 import indsql.api.*;
 import java.io.*;
 import java.sql.ResultSet;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -18,9 +20,15 @@ public class IndSQLApp {
     public static void main(String args[]) {
         // Edit this for swing
         // In swing, set connecion params with Connect.setConnectionParams()
-        cliMain();
-    }
         
+        if (args.length > 0 && "-cli".equals(args[0])) {
+            cliMain();
+        }
+        else {
+            guiMain();
+        }
+    }
+
     public static void cliMain() {
         System.out.println("IndSQL 0.1\n");
         
@@ -49,5 +57,16 @@ public class IndSQLApp {
         catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    
+    public static void guiMain() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JFrame frame = new MainFrame("INDSQL");
+                frame.setSize(450, 400);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setVisible(true);
+            }      
+        });
     }
 }
